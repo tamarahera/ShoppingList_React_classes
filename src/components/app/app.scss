@@ -1,0 +1,65 @@
+@import '../../style/variables.scss';
+
+.app {
+    background-color: $red;
+    height: 100%;
+    padding-bottom: 30px;
+    &__header {
+        text-align: center;
+        padding-top: 40px;
+        text-transform: uppercase;
+        font-size: 40px;
+    }
+}
+.container {
+    margin: 0 auto;
+}
+
+.search {
+    margin: 0 auto;
+    margin-top: 40px;
+    padding: 30px 70px;
+    max-width: 623px;   
+    min-height: 123px;
+    background: $grey-dark;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+}
+
+.list {
+    margin: 0 auto;
+    margin-top: 14px;
+    padding: 30px;
+    max-width: 623px;
+    min-height: 100px;
+    background: $grey-dark;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    transition: 2s all ;
+}
+
+@media (max-width: 768px) {
+    .container {
+        max-width: 540px;
+    }
+    .search {
+        padding: 30px;
+    }
+}
+
+@media (max-width: 576px) {
+    .app {
+        padding-bottom: 20px;
+    }
+    .container {
+        max-width: 100%;
+        padding: 0 10px;
+    }
+    .search {
+        padding: 30px 20px;
+    }
+    .list {
+        min-height: 50px;
+        padding: 25px 13px;
+    }
+}

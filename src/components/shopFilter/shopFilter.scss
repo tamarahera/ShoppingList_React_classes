@@ -1,0 +1,20 @@
+.search {
+    &__filter {
+        margin-top: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 576px) {
+    .search {
+        padding: 25px 13px;
+        &__filter {
+            gap: 8px;
+            button {
+                flex: 1;
+            }
+        }
+    }
+}
