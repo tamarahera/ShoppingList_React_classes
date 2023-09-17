@@ -12,34 +12,34 @@ import './app.scss';
 
 const dataItems = [
   {
-    name: 'Bananas', 
-    amount: 2, 
+    name: 'Bananas',
+    amount: 2,
     price: 3,
-    checked: false, 
+    checked: false,
     important: false,
     id: uuidv4()
   },
   {
-    name: 'Cat`s food', 
-    amount: 5, 
+    name: 'Cat`s food',
+    amount: 5,
     price: 10,
-    checked: false, 
+    checked: false,
     important: true,
     id: uuidv4()
   },
   {
-    name: 'Bread', 
-    amount: 4, 
+    name: 'Bread',
+    amount: 4,
     price: 8,
-    checked: false, 
+    checked: false,
     important: false,
     id: uuidv4()
   },
   {
-    name: 'Milk', 
-    amount: 3, 
+    name: 'Milk',
+    amount: 3,
     price: 6,
-    checked: true, 
+    checked: true,
     important: false,
     id: uuidv4()
   }
@@ -52,39 +52,54 @@ class App extends Component {
     this.state = {
       data: [
         {
-          name: 'Bananas', 
-          amount: 2, 
+          name: 'Bananas',
+          amount: 2,
           price: 3,
-          checked: false, 
+          checked: false,
           important: false,
           id: uuidv4()
         },
         {
-          name: 'Cat`s food', 
-          amount: 5, 
+          name: 'Cat`s food',
+          amount: 5,
           price: 10,
-          checked: false, 
+          checked: false,
           important: true,
           id: uuidv4()
         },
         {
-          name: 'Bread', 
-          amount: 4, 
+          name: 'Bread',
+          amount: 4,
           price: 8,
-          checked: false, 
+          checked: false,
           important: false,
           id: uuidv4()
         },
         {
-          name: 'Milk', 
-          amount: 3, 
+          name: 'Milk',
+          amount: 3,
           price: 6,
-          checked: true, 
+          checked: true,
           important: false,
           id: uuidv4()
         }
       ]
     }
+  }
+
+  componentDidUpdate() {
+    console.log('update')
+  }
+  
+  onChecked = (id) => {
+    this.setState(({data}) => ({
+      data: data.map(item => {
+        if (item.id === id) {
+          return { ...item, checked: !item.checked }
+        }
+        return item;
+      })
+    }))
   }
 
   render() {
@@ -99,7 +114,10 @@ class App extends Component {
             <ShopFilter />
           </section>
           <section className='list'>
-            <ShopList allData={this.state.data}/>
+            <ShopList
+              allData={this.state.data}
+              onChecked={this.onChecked}
+            />
           </section>
           <ShopAdd />
           <ShopTotal />

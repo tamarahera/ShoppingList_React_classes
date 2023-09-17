@@ -8,25 +8,27 @@ class ShopListItem extends Component {
 
     render() {
         const { name, amount, price, checked, important } = this.props.data;
+        const { onChecked } = this.props;
+ 
         let importantClass = "list__icon list__icon_important";
-            if (important) {
-                importantClass += " list__icon_important_active"
-            }
-        
-            let checkedClass = "list__item";
-            if (checked) {
-                checkedClass += " list__item_checked"
-            }
+        if (important) {
+            importantClass += " list__icon_important_active"
+        }
+
+        let checkedClass = "list__item";
+        if (checked) {
+            checkedClass += " list__item_checked"
+        }
 
         return (
             <li className={checkedClass}>
                 <label className="list__name">
-                    <input type="checkbox" name="item" checked={checked}/>
+                    <input type="checkbox" name="item" checked={checked} onChange={onChecked}/>
                     {name}
                     <span className="list__name_checkbox" tabIndex={0}></span>
                 </label>
-                <input type="text" name="amount" className="list__amount" data-input="amount" value={amount} />
-                <input type="text" name="price" className="list__price" data-input="price" value={price + `$`} />
+                <input type="text" name="amount" className="list__amount" data-input="amount" value={amount} onChange={onChecked}/>
+                <input type="text" name="price" className="list__price" data-input="price" value={price + `$`} onChange={onChecked}/>
                 <div className="list__btns">
                     <button className="list__btn">
                         <svg viewBox="0 0 17 17"
