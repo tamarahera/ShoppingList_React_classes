@@ -90,12 +90,23 @@ class App extends Component {
   componentDidUpdate() {
     console.log('update')
   }
-  
+
   onChecked = (id) => {
-    this.setState(({data}) => ({
+    this.setState(({ data }) => ({
       data: data.map(item => {
         if (item.id === id) {
           return { ...item, checked: !item.checked }
+        }
+        return item;
+      })
+    }))
+  }
+
+  onImportant = (id) => {
+    this.setState(({ data }) => ({
+      data: data.map(item => {
+        if (item.id === id) {
+          return { ...item, important: !item.important }
         }
         return item;
       })
@@ -117,6 +128,7 @@ class App extends Component {
             <ShopList
               allData={this.state.data}
               onChecked={this.onChecked}
+              onImportant={this.onImportant}
             />
           </section>
           <ShopAdd />

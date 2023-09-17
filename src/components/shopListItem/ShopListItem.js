@@ -8,7 +8,7 @@ class ShopListItem extends Component {
 
     render() {
         const { name, amount, price, checked, important } = this.props.data;
-        const { onChecked } = this.props;
+        const { onChecked, onImportant } = this.props;
  
         let importantClass = "list__icon list__icon_important";
         if (important) {
@@ -30,7 +30,7 @@ class ShopListItem extends Component {
                 <input type="text" name="amount" className="list__amount" data-input="amount" value={amount} onChange={onChecked}/>
                 <input type="text" name="price" className="list__price" data-input="price" value={price + `$`} onChange={onChecked}/>
                 <div className="list__btns">
-                    <button className="list__btn">
+                    <button className="list__btn" onClick={onImportant}>
                         <svg viewBox="0 0 17 17"
                             xmlns="http://www.w3.org/2000/svg"
                             className={importantClass}>

@@ -12,9 +12,13 @@ class ShopList extends Component {
 
     render() {
         const listItems = this.props.allData.map(item => {
-            const {id, ...restData} = item;
+            const { id, ...restData } = item;
             return (
-                <ShopListItem key={id} data={restData} onChecked={() => this.props.onChecked(id)}/>
+                <ShopListItem
+                    key={id}
+                    data={restData}
+                    onChecked={() => this.props.onChecked(id)} 
+                    onImportant={() => this.props.onImportant(id)}/>
             )
         });
 
