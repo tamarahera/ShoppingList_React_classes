@@ -130,6 +130,20 @@ class App extends Component {
     }))
   }
 
+  onCreateItem = (item, amount, price) => {
+    const newItem = {
+      name: item,
+      amount: amount,
+      price: price,
+      checked: false,
+      important: false,
+      id: uuidv4()
+    }
+    this.setState(({data}) => ({
+      data: [...data, newItem]
+    }))
+  }
+
   render() {
     return (
       <div className='app'>
@@ -150,7 +164,7 @@ class App extends Component {
               onDeleteCheckedItems={this.onDeleteCheckedItems}
             />
           </section>
-          <ShopAdd />
+          <ShopAdd onCreateItem={this.onCreateItem}/>
           <ShopTotal />
         </main>
         <Footer />
