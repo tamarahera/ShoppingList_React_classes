@@ -113,6 +113,15 @@ class App extends Component {
     }))
   }
 
+  onDelete = (id) => {
+    console.log(id)
+    this.setState(({ data }) => ({
+      data: data.filter(item => {
+        return item.id !== id;
+      })
+    }))
+  }
+
   render() {
     return (
       <div className='app'>
@@ -129,6 +138,7 @@ class App extends Component {
               allData={this.state.data}
               onChecked={this.onChecked}
               onImportant={this.onImportant}
+              onDelete={this.onDelete}
             />
           </section>
           <ShopAdd />

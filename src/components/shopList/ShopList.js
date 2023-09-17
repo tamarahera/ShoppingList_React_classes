@@ -18,7 +18,8 @@ class ShopList extends Component {
                     key={id}
                     data={restData}
                     onChecked={() => this.props.onChecked(id)} 
-                    onImportant={() => this.props.onImportant(id)}/>
+                    onImportant={() => this.props.onImportant(id)}
+                    onDelete={() => this.props.onDelete(id)}/>
             )
         });
 
