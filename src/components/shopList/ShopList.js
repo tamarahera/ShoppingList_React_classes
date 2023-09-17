@@ -19,7 +19,7 @@ class ShopList extends Component {
                     data={restData}
                     onChecked={() => this.props.onChecked(id)} 
                     onImportant={() => this.props.onImportant(id)}
-                    onDelete={() => this.props.onDelete(id)}/>
+                    onDeleteItems={() => this.props.onDeleteItems(id)}/>
             )
         });
 
@@ -35,7 +35,7 @@ class ShopList extends Component {
                     {listItems}
                 </ul>
                 <div className="list__reset">
-                    <button type="reset" className='button button__reset'>Delete checked</button>
+                    <button type="reset" className='button button__reset' onClick={this.props.onDeleteCheckedItems}>Delete checked</button>
                 </div>
             </>
         )

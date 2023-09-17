@@ -113,11 +113,19 @@ class App extends Component {
     }))
   }
 
-  onDelete = (id) => {
+  onDeleteItems = (id) => {
     console.log(id)
     this.setState(({ data }) => ({
       data: data.filter(item => {
         return item.id !== id;
+      })
+    }))
+  }
+
+  onDeleteCheckedItems = () => {
+    this.setState(({data}) => ({
+      data: data.filter(item => {
+        return !item.checked;
       })
     }))
   }
@@ -138,7 +146,8 @@ class App extends Component {
               allData={this.state.data}
               onChecked={this.onChecked}
               onImportant={this.onImportant}
-              onDelete={this.onDelete}
+              onDeleteItems={this.onDeleteItems}
+              onDeleteCheckedItems={this.onDeleteCheckedItems}
             />
           </section>
           <ShopAdd />
