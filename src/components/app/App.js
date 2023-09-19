@@ -151,8 +151,21 @@ class App extends Component {
     })
   }
 
+  onFilterData = (arr, filter) => {
+    switch (filter) {
+      case 'important':
+        return arr.filter(item => item.important);
+      case 'over5':
+        return arr.filter(item => item.price >= 5)
+      default:
+        return arr;
+    }
+  }
+  
   render() {
-    const { data } = this.state;
+    const { data, filter } = this.state;
+    
+    const filterData = this.onFilterData(data, filter);
 
     const itemsTotal = data.length;
     const amountTotal = data.reduce((sum, item) => {
@@ -171,11 +184,11 @@ class App extends Component {
           <section className='search'>
             <ShopFind />
             <ShopFilter filter={this.state.filter}
-              onUpdateFilter={this.onUpdateFilter}/>
+              onUpdateFilter={this.onUpdateFilter} />
           </section>
           <section className='list'>
             <ShopList
-              allData={this.state.data}
+              allData={filterData}
               onChecked={this.onChecked}
               onImportant={this.onImportant}
               onDeleteItems={this.onDeleteItems}
