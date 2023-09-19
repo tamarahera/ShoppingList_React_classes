@@ -1,17 +1,38 @@
 import './shopFilter.scss';
 import '../../style/button.scss';
+import { Component } from 'react';
 
-const ShopFilter = () => {
-    return (
-        <div className='search__filter'>
-            <button type="button" className='button button__filter button__filter_active'>All items
-            </button>
-            <button type="button" className='button button__filter'>Important
-            </button>
-            <button type="button" className='button button__filter'>Price over 5$
-            </button>
-        </div>
-    )
+class ShopFilter extends Component {
+    constructor(props) {
+        super(props)
+    }
+
+    render() {
+        const buttonsData = [
+            { name: 'all', label: 'All items' },
+            { name: 'important', label: 'Important' },
+            { name: 'over5', label: 'Price over 5$' }
+        ];
+
+        const buttons = buttonsData.map(item => {
+            const active = this.props.filter === item.name;
+            const classes = active ? ' button__filter_active' : '';
+
+            return (
+                <button type="button"
+                    key={item.name}
+                    className={'button button__filter' + classes}
+                    onClick={() => this.props.onUpdateFilter(item.name)}>
+                    {item.label}
+                </button>
+            )
+        });
+        return (
+            <div className='search__filter'>
+                {buttons}
+            </div>
+        )
+    }
 }
 
 export default ShopFilter;

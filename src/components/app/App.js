@@ -83,7 +83,8 @@ class App extends Component {
           important: false,
           id: uuidv4()
         }
-      ]
+      ],
+      filter: 'all'
     }
   }
 
@@ -144,6 +145,12 @@ class App extends Component {
     }))
   }
 
+  onUpdateFilter = (name) => {
+    this.setState({
+      filter: name
+    })
+  }
+
   render() {
     const { data } = this.state;
 
@@ -163,7 +170,8 @@ class App extends Component {
         <main className='container'>
           <section className='search'>
             <ShopFind />
-            <ShopFilter />
+            <ShopFilter filter={this.state.filter}
+              onUpdateFilter={this.onUpdateFilter}/>
           </section>
           <section className='list'>
             <ShopList
