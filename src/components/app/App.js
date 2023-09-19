@@ -84,7 +84,8 @@ class App extends Component {
           id: uuidv4()
         }
       ],
-      filter: 'all'
+      filterValue: 'all',
+      searchValue: ''
     }
   }
 
@@ -147,12 +148,12 @@ class App extends Component {
 
   onUpdateFilter = (name) => {
     this.setState({
-      filter: name
+      filterValue: name
     })
   }
 
-  onFilterData = (arr, filter) => {
-    switch (filter) {
+  onFilterData = (arr, filterValue) => {
+    switch (filterValue) {
       case 'important':
         return arr.filter(item => item.important);
       case 'over5':
@@ -161,11 +162,27 @@ class App extends Component {
         return arr;
     }
   }
-  
+
+  onSearchData = (arr, value) => {
+    if (value.length === 0) {
+      return arr;
+    }
+
+    const searchedData = arr.filter(item => {
+      return item.name.toLowerCase().startsWith(value.toLowerCase())
+    });
+    return searchedData;
+  }
+
+  onUpdateSearch = (value) => {
+    this.setState({ searchValue: value });
+  }
+
   render() {
-    const { data, filter } = this.state;
-    
-    const filterData = this.onFilterData(data, filter);
+    const { data, filterValue, searchValue } = this.state;
+
+    const filterData = this.onFilterData(data, filterValue);
+    const visibleData = this.onSearchData(filterData, searchValue);
 
     const itemsTotal = data.length;
     const amountTotal = data.reduce((sum, item) => {
@@ -182,13 +199,13 @@ class App extends Component {
         </header>
         <main className='container'>
           <section className='search'>
-            <ShopFind />
-            <ShopFilter filter={this.state.filter}
+            <ShopFind onUpdateSearch={this.onUpdateSearch} />
+            <ShopFilter filterValue={this.state.filterValue}
               onUpdateFilter={this.onUpdateFilter} />
           </section>
           <section className='list'>
             <ShopList
-              allData={filterData}
+              allData={visibleData}
               onChecked={this.onChecked}
               onImportant={this.onImportant}
               onDeleteItems={this.onDeleteItems}

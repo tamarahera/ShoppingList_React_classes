@@ -15,7 +15,7 @@ class ShopFilter extends Component {
         ];
 
         const buttons = buttonsData.map(item => {
-            const active = this.props.filter === item.name;
+            const active = this.props.filterValue === item.name;
             const classes = active ? ' button__filter_active' : '';
 
             return (
