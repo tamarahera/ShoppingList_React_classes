@@ -123,7 +123,7 @@ class App extends Component {
   }
 
   onDeleteCheckedItems = () => {
-    this.setState(({data}) => ({
+    this.setState(({ data }) => ({
       data: data.filter(item => {
         return !item.checked;
       })
@@ -133,18 +133,28 @@ class App extends Component {
   onCreateItem = (item, amount, price) => {
     const newItem = {
       name: item,
-      amount: amount,
-      price: price,
+      amount: +amount,
+      price: +price,
       checked: false,
       important: false,
       id: uuidv4()
     }
-    this.setState(({data}) => ({
+    this.setState(({ data }) => ({
       data: [...data, newItem]
     }))
   }
 
   render() {
+    const { data } = this.state;
+
+    const itemsTotal = data.length;
+    const amountTotal = data.reduce((sum, item) => {
+      return sum += item.amount;
+    }, 0);
+    const priceTotal = data.reduce((sum, item) => {
+      return sum += item.price;
+    }, 0);
+
     return (
       <div className='app'>
         <header>
@@ -164,8 +174,11 @@ class App extends Component {
               onDeleteCheckedItems={this.onDeleteCheckedItems}
             />
           </section>
-          <ShopAdd onCreateItem={this.onCreateItem}/>
-          <ShopTotal />
+          <ShopAdd onCreateItem={this.onCreateItem} />
+          <ShopTotal
+            itemsTotal={itemsTotal}
+            amountTotal={amountTotal}
+            priceTotal={priceTotal} />
         </main>
         <Footer />
       </div>
