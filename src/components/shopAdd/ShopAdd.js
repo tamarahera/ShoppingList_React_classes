@@ -14,7 +14,15 @@ class ShopAdd extends Component {
     }
 
     onSetValue = (e) => {
-        const filterValue = e.target.value.replace(/[ \W]/g, '');
+        const value = e.target.value;
+
+        console.log(e.target)
+        let filterValue;
+        if (e.target.name === 'item') {
+            filterValue = e.target.value.replace(/[ \W]/g, '');
+        } else {
+            filterValue = e.target.value.replace(/((?![\d.]).)|\.{2}/g, '');
+        }
         this.setState({
             [e.target.name]: filterValue
         })

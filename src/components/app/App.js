@@ -24,7 +24,7 @@ class App extends Component {
 
   componentDidMount() {
     const localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-    console.log(localData)
+
     this.setState({
       data: localData.data,
       filterValue: localData.filterValue,
@@ -35,6 +35,7 @@ class App extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevState !== this.state) {
       const jsonObj = JSON.stringify(this.state);
+      
       localStorage.setItem(LOCAL_STORAGE_KEY, jsonObj); // set localStorage
     }
   }
