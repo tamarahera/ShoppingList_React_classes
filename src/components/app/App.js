@@ -10,42 +10,6 @@ import Footer from '../footer/Footer';
 
 import './app.scss';
 
-const dataItems = [
-  {
-    name: 'Bananas',
-    amount: 2,
-    price: 3,
-    checked: false,
-    important: false,
-    id: uuidv4()
-  },
-  {
-    name: 'Cat`s food',
-    amount: 5,
-    price: 10,
-    checked: false,
-    important: true,
-    id: uuidv4()
-  },
-  {
-    name: 'Bread',
-    amount: 4,
-    price: 8,
-    checked: false,
-    important: false,
-    id: uuidv4()
-  },
-  {
-    name: 'Milk',
-    amount: 3,
-    price: 6,
-    checked: true,
-    important: false,
-    id: uuidv4()
-  }
-];
-
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -87,10 +51,6 @@ class App extends Component {
       filterValue: 'all',
       searchValue: ''
     }
-  }
-
-  componentDidUpdate() {
-    console.log('update')
   }
 
   onChecked = (id) => {
@@ -178,11 +138,28 @@ class App extends Component {
     this.setState({ searchValue: value });
   }
 
+  setContent = (visibleData) => {
+    if (this.state.data.length < 1 || !this.state.data) {
+      return <InitTitle />
+    } else if (visibleData.length < 1) {
+      return <NoMatchTitle />
+    } else {
+      return <ShopList
+                allData={visibleData}
+                onChecked={this.onChecked}
+                onImportant={this.onImportant}
+                onDeleteItems={this.onDeleteItems}
+                onDeleteCheckedItems={this.onDeleteCheckedItems}
+              />
+    }
+  }
+
   render() {
-    const { data, filterValue, searchValue } = this.state;
+    const { data, filterValue, searchValue} = this.state;
 
     const filterData = this.onFilterData(data, filterValue);
     const visibleData = this.onSearchData(filterData, searchValue);
+    const content = this.setContent(visibleData)
 
     const itemsTotal = data.length;
     const amountTotal = data.reduce((sum, item) => {
@@ -204,13 +181,7 @@ class App extends Component {
               onUpdateFilter={this.onUpdateFilter} />
           </section>
           <section className='list'>
-            <ShopList
-              allData={visibleData}
-              onChecked={this.onChecked}
-              onImportant={this.onImportant}
-              onDeleteItems={this.onDeleteItems}
-              onDeleteCheckedItems={this.onDeleteCheckedItems}
-            />
+            {content}
           </section>
           <ShopAdd onCreateItem={this.onCreateItem} />
           <ShopTotal
